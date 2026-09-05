@@ -1,118 +1,351 @@
-    password+=chars[
-      Math.floor(Math.random()*chars.length)
-    ];
-  }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  document.getElementById("passOut").innerText=
-    password;
-}
+  <title>Useful Online Tools</title>
 
-function randomNum(){
-
-  let min=parseInt(
-    document.getElementById("min").value
-  );
-
-  let max=parseInt(
-    document.getElementById("max").value
-  );
-
-  if(isNaN(min)||isNaN(max)||min>max){
-    document.getElementById("randomOut").innerText=
-      "Enter valid numbers";
-    return;
-  }
-
-  let number=
-    Math.floor(Math.random()*(max-min+1))+min;
-
-  document.getElementById("randomOut").innerText=
-    "Number: "+number;
-}
-
-let timer;
-let remaining=0;
-
-function startTimer(){
-
-  remaining=parseInt(
-    document.getElementById("seconds").value
-  );
-
-  if(isNaN(remaining)||remaining<=0)return;
-
-  clearInterval(timer);
-
-  timer=setInterval(function(){
-
-    let minutes=Math.floor(remaining/60);
-    let seconds=remaining%60;
-
-    document.getElementById("timerOut").innerText=
-      String(minutes).padStart(2,"0")+":"+
-      String(seconds).padStart(2,"0");
-
-    remaining--;
-
-    if(remaining<0){
-      clearInterval(timer);
-      document.getElementById("timerOut").innerText=
-        "⏰ Time Up!";
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
     }
 
-  },1000);
-}
-
-function stopTimer(){
-  clearInterval(timer);
-}
-
-function searchTools(){
-
-  let search=
-    document.getElementById("search").value.toLowerCase();
-
-  document.querySelectorAll(".tool").forEach(function(card){
-
-    let text=card.innerText.toLowerCase();
-
-    if(text.includes(search)){
-      card.classList.remove("hide");
-    }else{
-      card.classList.add("hide");
+    body {
+      background: #f2f4f7;
+      color: #222;
+      padding: 20px;
     }
 
-  });
-}
-
-function filterTools(category,button){
-
-  document.querySelectorAll(".categories button")
-  .forEach(function(b){
-    b.classList.remove("active");
-  });
-
-  button.classList.add("active");
-
-  document.getElementById("search").value="";
-
-  document.querySelectorAll(".tool")
-  .forEach(function(card){
-
-    if(category==="all" ||
-       card.dataset.cat===category){
-
-      card.classList.remove("hide");
-
-    }else{
-
-      card.classList.add("hide");
-
+    header {
+      text-align: center;
+      margin-bottom: 25px;
     }
 
-  });
-}
+    header h1 {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
 
-</script>
+    header p {
+      color: #666;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .tool {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+
+    .tool h2 {
+      margin-bottom: 15px;
+    }
+
+    #display {
+      width: 100%;
+      height: 55px;
+      font-size: 24px;
+      text-align: right;
+      padding: 10px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    button {
+      padding: 14px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #e9ecef;
+    }
+
+    button:hover {
+      background: #d6d9dc;
+    }
+
+    .equal {
+      background: #222;
+      color: white;
+    }
+
+    .clear {
+      background: #dc3545;
+      color: white;
+    }
+
+    .password-box {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+
+    #password {
+      flex: 1;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .generate {
+      width: 100%;
+      background: #222;
+      color: white;
+    }
+
+    .options {
+      margin-bottom: 15px;
+    }
+
+    .options label {
+      display: block;
+      margin: 8px 0;
+    }
+
+    #length {
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Useful Online Tools</h1>
+    <p>Simple and useful tools in one place</p>
+  </header>
+
+  <div class="container">
+
+    <!-- Calculator -->
+    <div class="tool">
+      <h2>🧮 Calculator</h2>
+
+      <input type="text" id="display" readonly>
+
+      <div class="buttons">
+        <button class="clear" onclick="clearDisplay()">C</button>
+        <button onclick="deleteLast()">⌫</button>
+        <button onclick="addValue('%')">%</button>
+        <button onclick="addValue('/')">÷</button>
+
+        <button onclick="addValue('7')">7</button>
+        <button onclick="addValue('8')">8</button>
+        <button onclick="addValue('9')">9</button>
+        <button onclick="addValue('*')">×</button>
+
+        <button onclick="addValue('4')">4</button>
+        <button onclick="addValue('5')">5</button>
+        <button onclick="addValue('6')">6</button>
+        <button onclick="addValue('-')">−</button>
+
+        <button onclick="addValue('1')">1</button>
+        <button onclick="addValue('2')">2</button>
+        <button onclick="addValue('3')">3</button>
+        <button onclick="addValue('+')">+</button>
+
+        <button onclick="addValue('0')">0</button>
+        <button onclick="addValue('.')">.</button>
+        <button class="equal" onclick="calculate()">=</button>
+      </div>
+    </div>
+
+
+    <!-- Password Generator -->
+    <div class="tool">
+      <h2>🔐 Password Generator</h2>
+
+      <div class="password-box">
+        <input type="text" id="password" placeholder="Your password" readonly>
+        <button onclick="copyPassword()">📋</button>
+      </div>
+
+      <div class="options">
+        <label>
+          Password Length:
+          <span id="lengthValue">12</span>
+        </label>
+
+        <input
+          type="range"
+          id="length"
+          min="6"
+          max="30"
+          value="12"
+          oninput="updateLength()"
+        >
+
+        <label>
+          <input type="checkbox" id="uppercase" checked>
+          Uppercase (A-Z)
+        </label>
+
+        <label>
+          <input type="checkbox" id="lowercase" checked>
+          Lowercase (a-z)
+        </label>
+
+        <label>
+          <input type="checkbox" id="numbers" checked>
+          Numbers (0-9)
+        </label>
+
+        <label>
+          <input type="checkbox" id="symbols" checked>
+          Symbols (!@#$)
+        </label>
+      </div>
+
+      <button class="generate" onclick="generatePassword()">
+        Generate Password
+      </button>
+    </div>
+
+  </div>
+
+
+  <script>
+
+    // =========================
+    // CALCULATOR
+    // =========================
+
+    const display = document.getElementById("display");
+
+    function addValue(value) {
+      display.value += value;
+    }
+
+    function clearDisplay() {
+      display.value = "";
+    }
+
+    function deleteLast() {
+      display.value = display.value.slice(0, -1);
+    }
+
+    function calculate() {
+      try {
+        if (display.value.trim() === "") return;
+
+        // Basic calculator only
+        const result = Function(
+          '"use strict"; return (' + display.value + ')'
+        )();
+
+        display.value = result;
+      } catch (error) {
+        display.value = "Error";
+      }
+    }
+
+
+    // =========================
+    // PASSWORD GENERATOR
+    // =========================
+
+    function updateLength() {
+      const length = document.getElementById("length").value;
+      document.getElementById("lengthValue").textContent = length;
+    }
+
+    function generatePassword() {
+
+      const length =
+        parseInt(document.getElementById("length").value);
+
+      const uppercase =
+        document.getElementById("uppercase").checked;
+
+      const lowercase =
+        document.getElementById("lowercase").checked;
+
+      const numbers =
+        document.getElementById("numbers").checked;
+
+      const symbols =
+        document.getElementById("symbols").checked;
+
+      let characters = "";
+
+      if (uppercase) {
+        characters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      }
+
+      if (lowercase) {
+        characters += "abcdefghijklmnopqrstuvwxyz";
+      }
+
+      if (numbers) {
+        characters += "0123456789";
+      }
+
+      if (symbols) {
+        characters += "!@#$%^&*()_+-=[]{}|;:,.<>?";
+      }
+
+      if (characters.length === 0) {
+        alert("Please select at least one option.");
+        return;
+      }
+
+      let password = "";
+
+      for (let i = 0; i < length; i++) {
+        const randomIndex =
+          Math.floor(Math.random() * characters.length);
+
+        password += characters[randomIndex];
+      }
+
+      document.getElementById("password").value = password;
+    }
+
+
+    // =========================
+    // COPY PASSWORD
+    // =========================
+
+    function copyPassword() {
+
+      const password =
+        document.getElementById("password").value;
+
+      if (password === "") {
+        alert("First generate a password.");
+        return;
+      }
+
+      navigator.clipboard.writeText(password)
+        .then(() => {
+          alert("Password copied!");
+        })
+        .catch(() => {
+          alert("Copy failed. Please copy it manually.");
+        });
+    }
+
+  </script>
+
 </body>
 </html>
