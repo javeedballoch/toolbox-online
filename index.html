@@ -2,87 +2,108 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>ToolBox Online</title>
 
 <style>
 *{box-sizing:border-box}
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f3f6fb;
-  color:#222;
+margin:0;
+font-family:Arial,sans-serif;
+background:#f4f7fb;
+color:#172033
 }
 header{
-  background:#111827;
-  color:white;
-  text-align:center;
-  padding:25px 15px;
+background:linear-gradient(135deg,#111827,#2563eb);
+color:white;
+text-align:center;
+padding:35px 15px
 }
-header h1{margin:0;font-size:32px}
-header p{margin:8px 0 0;color:#cbd5e1}
+header h1{font-size:38px;margin:0 0 8px}
+header p{margin:0;color:#dbeafe;font-size:17px}
 
-.container{
-  max-width:1000px;
-  margin:25px auto;
-  padding:15px;
+.wrap{
+max-width:1100px;
+margin:auto;
+padding:20px
 }
 
 .search{
-  width:100%;
-  padding:15px;
-  border:1px solid #ccc;
-  border-radius:12px;
-  font-size:16px;
-  margin-bottom:20px;
+width:100%;
+padding:16px;
+border:2px solid #dbe3ef;
+border-radius:14px;
+font-size:17px;
+margin-bottom:15px
 }
 
-.tools{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:15px;
-}
-
-.card{
-  background:white;
-  padding:20px;
-  border-radius:15px;
-  box-shadow:0 4px 15px #0001;
-}
-.card h2{margin-top:0}
-
-textarea,input{
-  width:100%;
-  padding:12px;
-  margin:8px 0;
-  border:1px solid #ccc;
-  border-radius:9px;
-  font-size:15px;
+.categories{
+display:flex;
+gap:8px;
+overflow:auto;
+margin-bottom:20px
 }
 
 button{
-  border:0;
-  padding:11px 15px;
-  border-radius:9px;
-  background:#2563eb;
-  color:white;
-  cursor:pointer;
-  margin:4px 2px;
+border:0;
+border-radius:10px;
+padding:11px 15px;
+background:#2563eb;
+color:white;
+cursor:pointer;
+margin:4px 2px
 }
-button:hover{opacity:.9}
+
+.categories button{
+background:white;
+color:#172033;
+border:1px solid #ddd
+}
+
+.categories .active{
+background:#2563eb;
+color:white
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:18px
+}
+
+.card{
+background:white;
+border-radius:18px;
+padding:20px;
+box-shadow:0 8px 25px #0001
+}
+
+.card h2{margin-top:0}
+
+input,textarea,select{
+width:100%;
+padding:12px;
+border:1px solid #ccd5e1;
+border-radius:10px;
+font-size:15px;
+margin:5px 0
+}
 
 .result{
-  background:#f1f5f9;
-  padding:12px;
-  border-radius:9px;
-  margin-top:8px;
-  word-break:break-word;
+background:#f1f5f9;
+padding:12px;
+border-radius:10px;
+margin-top:8px;
+min-height:40px;
+word-break:break-word
 }
 
+.hide{display:none!important}
+
 footer{
-  text-align:center;
-  padding:30px;
-  color:#64748b;
+text-align:center;
+padding:35px;
+color:#64748b
 }
 </style>
 </head>
@@ -90,264 +111,110 @@ footer{
 <body>
 
 <header>
-  <h1>🛠️ ToolBox Online</h1>
-  <p>Free & Useful Online Tools</p>
+<h1>🛠️ ToolBox Online</h1>
+<p>20+ Free & Useful Online Tools</p>
 </header>
 
-<div class="container">
+<div class="wrap">
 
 <input class="search" id="search"
-placeholder="🔎 Search a tool..." oninput="searchTools()">
+placeholder="🔎 Search any tool..."
+oninput="searchTools()">
 
-<div class="tools">
+<div class="categories">
+<button class="active" onclick="filterTools('all',this)">All</button>
+<button onclick="filterTools('text',this)">📝 Text</button>
+<button onclick="filterTools('calc',this)">🧮 Calculators</button>
+<button onclick="filterTools('gen',this)">⚙️ Generators</button>
+<button onclick="filterTools('utility',this)">🛠️ Utility</button>
+</div>
 
-<!-- WORD COUNTER -->
-<div class="card tool">
+<div class="grid">
+
+<div class="card tool" data-cat="text">
 <h2>📝 Word Counter</h2>
-<textarea id="text" rows="5" placeholder="Write or paste text..."
-oninput="countWords()"></textarea>
+<textarea id="wc" rows="5"
+placeholder="Write or paste text..."
+oninput="wordCount()"></textarea>
 <div class="result">
 Words: <b id="words">0</b><br>
 Characters: <b id="chars">0</b>
 </div>
 </div>
 
-<!-- CALCULATOR -->
-<div class="card tool">
+<div class="card tool" data-cat="text">
+<h2>🔠 Case Converter</h2>
+<textarea id="caseIn" rows="4"
+placeholder="Enter text..."></textarea>
+<button onclick="upper()">UPPERCASE</button>
+<button onclick="lower()">lowercase</button>
+<div class="result" id="caseOut"></div>
+</div>
+
+<div class="card tool" data-cat="text">
+<h2>↔️ Reverse Text</h2>
+<textarea id="revIn" rows="4"
+placeholder="Enter text..."></textarea>
+<button onclick="reverseText()">Reverse</button>
+<div class="result" id="revOut"></div>
+</div>
+
+<div class="card tool" data-cat="calc">
 <h2>🧮 Calculator</h2>
 <input id="calc" placeholder="Example: 25+10*2">
 <button onclick="calculate()">Calculate</button>
-<div class="result" id="calcResult">Result: —</div>
+<div class="result" id="calcOut">Result: —</div>
 </div>
 
-<!-- AGE CALCULATOR -->
-<div class="card tool">
+<div class="card tool" data-cat="calc">
 <h2>🎂 Age Calculator</h2>
 <input type="date" id="dob">
-<button onclick="ageCalculate()">Calculate Age</button>
-<div class="result" id="ageResult">Age: —</div>
+<button onclick="ageCalc()">Calculate Age</button>
+<div class="result" id="ageOut">Age: —</div>
 </div>
 
-<!-- PASSWORD -->
-<div class="card tool">
-<h2>🔐 Password Generator</h2>
-<button onclick="generatePassword()">Generate</button>
-<div class="result" id="password">Your password</div>
-</div>
-
-<!-- CASE CONVERTER -->
-<div class="card tool">
-<h2>🔠 Text Case</h2>
-<textarea id="caseText" rows="4"
-placeholder="Enter text"></textarea>
-<button onclick="upper()">UPPERCASE</button>
-<button onclick="lower()">lowercase</button>
-<div class="result" id="caseResult"></div>
-</div>
-
-<!-- BMI -->
-<div class="card tool">
+<div class="card tool" data-cat="calc">
 <h2>⚖️ BMI Calculator</h2>
 <input type="number" id="weight" placeholder="Weight (kg)">
 <input type="number" id="height" placeholder="Height (cm)">
 <button onclick="bmi()">Calculate BMI</button>
-<div class="result" id="bmiResult">BMI: —</div>
+<div class="result" id="bmiOut">BMI: —</div>
 </div>
 
-<!-- TIP -->
-<div class="card tool">
+<div class="card tool" data-cat="calc">
 <h2>💵 Tip Calculator</h2>
 <input type="number" id="bill" placeholder="Bill amount">
 <input type="number" id="tip" placeholder="Tip %">
 <button onclick="tipCalc()">Calculate</button>
-<div class="result" id="tipResult">Total: —</div>
+<div class="result" id="tipOut">Total: —</div>
 </div>
 
-<!-- RANDOM NUMBER -->
-<div class="card tool">
+<div class="card tool" data-cat="gen">
+<h2>🔐 Password Generator</h2>
+<button onclick="passwordGen()">Generate Password</button>
+<div class="result" id="passOut">Your password</div>
+</div>
+
+<div class="card tool" data-cat="gen">
 <h2>🎲 Random Number</h2>
 <input type="number" id="min" placeholder="Minimum">
 <input type="number" id="max" placeholder="Maximum">
-<button onclick="randomNumber()">Generate</button>
-<div class="result" id="randomResult">Number: —</div>
+<button onclick="randomNum()">Generate</button>
+<div class="result" id="randomOut">Number: —</div>
 </div>
 
-<!-- CHARACTER REMOVER -->
-<div class="card tool">
-<h2>🧹 Remove Spaces</h2>
-<textarea id="spaceText" rows="4"
-placeholder="Enter text"></textarea>
-<button onclick="removeSpaces()">Remove Spaces</button>
-<div class="result" id="spaceResult"></div>
-</div>
-
-<!-- TIMER -->
-<div class="card tool">
+<div class="card tool" data-cat="utility">
 <h2>⏱️ Timer</h2>
 <input type="number" id="seconds" placeholder="Seconds">
 <button onclick="startTimer()">Start</button>
 <button onclick="stopTimer()">Stop</button>
-<div class="result" id="timerResult">00:00</div>
+<div class="result" id="timerOut">00:00</div>
 </div>
 
 </div>
 </div>
 
 <footer>
-© 2026 ToolBox Online — Free Tools
+<b>ToolBox Online</b><br>
+Free useful tools for everyone © 2026
 </footer>
-
-<script>
-
-// Word Counter
-function countWords(){
-  let text=document.getElementById("text").value;
-  let words=text.trim()===""?0:text.trim().split(/\s+/).length;
-  document.getElementById("words").innerText=words;
-  document.getElementById("chars").innerText=text.length;
-}
-
-// Calculator
-function calculate(){
-  let value=document.getElementById("calc").value;
-  try{
-    document.getElementById("calcResult").innerText=
-      "Result: "+Function("return "+value)();
-  }catch{
-    document.getElementById("calcResult").innerText="Invalid calculation";
-  }
-}
-
-// Age
-function ageCalculate(){
-  let dob=new Date(document.getElementById("dob").value);
-  if(!document.getElementById("dob").value)return;
-
-  let today=new Date();
-  let age=today.getFullYear()-dob.getFullYear();
-
-  let month=today.getMonth()-dob.getMonth();
-
-  if(month<0 || (month===0 && today.getDate()<dob.getDate())){
-    age--;
-  }
-
-  document.getElementById("ageResult").innerText="Age: "+age+" years";
-}
-
-// Password
-function generatePassword(){
-  let chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
-  let pass="";
-  for(let i=0;i<14;i++){
-    pass+=chars[Math.floor(Math.random()*chars.length)];
-  }
-  document.getElementById("password").innerText=pass;
-}
-
-// Case
-function upper(){
-  document.getElementById("caseResult").innerText=
-  document.getElementById("caseText").value.toUpperCase();
-}
-
-function lower(){
-  document.getElementById("caseResult").innerText=
-  document.getElementById("caseText").value.toLowerCase();
-}
-
-// BMI
-function bmi(){
-  let w=parseFloat(document.getElementById("weight").value);
-  let h=parseFloat(document.getElementById("height").value)/100;
-
-  if(!w || !h)return;
-
-  let result=w/(h*h);
-
-  document.getElementById("bmiResult").innerText=
-  "BMI: "+result.toFixed(1);
-}
-
-// Tip
-function tipCalc(){
-  let bill=parseFloat(document.getElementById("bill").value);
-  let tip=parseFloat(document.getElementById("tip").value);
-
-  if(isNaN(bill)||isNaN(tip))return;
-
-  let total=bill+(bill*tip/100);
-
-  document.getElementById("tipResult").innerText=
-  "Total: "+total.toFixed(2);
-}
-
-// Random
-function randomNumber(){
-  let min=parseInt(document.getElementById("min").value);
-  let max=parseInt(document.getElementById("max").value);
-
-  if(isNaN(min)||isNaN(max)||min>max)return;
-
-  let n=Math.floor(Math.random()*(max-min+1))+min;
-
-  document.getElementById("randomResult").innerText=
-  "Number: "+n;
-}
-
-// Remove spaces
-function removeSpaces(){
-  let text=document.getElementById("spaceText").value;
-  document.getElementById("spaceResult").innerText=
-  text.replace(/\s+/g,"");
-}
-
-// Search
-function searchTools(){
-  let query=document.getElementById("search").value.toLowerCase();
-  let cards=document.querySelectorAll(".tool");
-
-  cards.forEach(card=>{
-    card.style.display=
-      card.innerText.toLowerCase().includes(query)
-      ?"block":"none";
-  });
-}
-
-// Timer
-let timer;
-let remaining=0;
-
-function startTimer(){
-  remaining=parseInt(document.getElementById("seconds").value);
-
-  if(isNaN(remaining)||remaining<=0)return;
-
-  clearInterval(timer);
-
-  timer=setInterval(()=>{
-    let min=Math.floor(remaining/60);
-    let sec=remaining%60;
-
-    document.getElementById("timerResult").innerText=
-      String(min).padStart(2,"0")+":"+
-      String(sec).padStart(2,"0");
-
-    remaining--;
-
-    if(remaining<0){
-      clearInterval(timer);
-      document.getElementById("timerResult").innerText="⏰ Time Up!";
-    }
-
-  },1000);
-}
-
-function stopTimer(){
-  clearInterval(timer);
-}
-
-</script>
-
-</body>
-</html>
