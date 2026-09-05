@@ -9,267 +9,289 @@
 <style>
 *{
   box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,sans-serif;
 }
 
-:root{
-  --bg:#f2f4f7;
-  --card:#ffffff;
-  --text:#222;
-  --muted:#666;
-  --border:#ddd;
-  --button:#222;
-  --buttonText:#fff;
-}
-
-body.dark{
-  --bg:#121212;
-  --card:#1e1e1e;
-  --text:#f5f5f5;
-  --muted:#aaa;
-  --border:#444;
-  --button:#f5f5f5;
-  --buttonText:#111;
+html{
+  scroll-behavior:smooth;
 }
 
 body{
-  background:var(--bg);
-  color:var(--text);
-  padding:20px;
-  transition:.3s;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f2f4f7;
+  color:#222;
+  transition:0.3s;
+}
+
+body.dark{
+  background:#121212;
+  color:#eee;
 }
 
 header{
   text-align:center;
-  max-width:900px;
-  margin:0 auto 25px;
+  padding:30px 15px 20px;
 }
 
 header h1{
-  font-size:34px;
-  margin-bottom:8px;
+  font-size:42px;
+  margin:0 0 10px;
 }
 
 header p{
-  color:var(--muted);
+  color:#666;
+  font-size:20px;
+}
+
+.dark header p{
+  color:#aaa;
 }
 
 .top-buttons{
   display:flex;
   justify-content:center;
   gap:10px;
-  margin-top:15px;
-}
-
-.top-buttons button{
-  padding:10px 18px;
-}
-
-.search{
-  max-width:900px;
-  margin:0 auto 20px;
-}
-
-.search input{
-  width:100%;
-  padding:15px;
-  border:1px solid var(--border);
-  border-radius:10px;
-  font-size:17px;
-  background:var(--card);
-  color:var(--text);
-}
-
-.categories{
-  max-width:900px;
-  margin:0 auto 25px;
-  display:flex;
   flex-wrap:wrap;
-  justify-content:center;
-  gap:8px;
-}
-
-.category-btn{
-  padding:10px 15px;
-  border:1px solid var(--border);
-  background:var(--card);
-  color:var(--text);
-}
-
-.category-btn.active{
-  background:var(--button);
-  color:var(--buttonText);
-}
-
-.container{
-  max-width:900px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:20px;
-}
-
-.tool{
-  background:var(--card);
-  padding:20px;
-  border-radius:16px;
-  border:1px solid var(--border);
-  box-shadow:0 5px 15px rgba(0,0,0,.08);
-  transition:.2s;
-}
-
-.tool:hover{
-  transform:translateY(-3px);
-}
-
-.tool h2{
-  margin-bottom:15px;
-}
-
-input,
-select{
-  width:100%;
-  padding:13px;
-  border:1px solid var(--border);
-  border-radius:9px;
-  font-size:16px;
-  margin-bottom:10px;
-  background:var(--card);
-  color:var(--text);
+  margin:20px 0;
 }
 
 button{
-  padding:13px;
+  border:0;
+  border-radius:12px;
+  padding:13px 20px;
   font-size:16px;
-  border:none;
-  border-radius:8px;
   cursor:pointer;
-  background:#e9ecef;
-  color:#222;
-}
-
-body.dark button{
-  background:#333;
-  color:#fff;
+  background:#222;
+  color:white;
+  transition:0.2s;
 }
 
 button:hover{
-  opacity:.85;
+  transform:translateY(-2px);
+  opacity:0.9;
 }
 
-.generate{
+.dark-btn{
+  background:#333;
+  font-size:18px;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:10px 20px 50px;
+}
+
+.search{
   width:100%;
-  background:var(--button);
-  color:var(--buttonText);
+  padding:20px;
+  border:2px solid #ddd;
+  border-radius:18px;
+  font-size:20px;
+  margin:20px 0;
+  outline:none;
 }
 
-.clear{
-  background:#dc3545 !important;
-  color:white !important;
+.dark .search,
+.dark input,
+.dark select{
+  background:#222;
+  color:#eee;
+  border-color:#444;
 }
 
-.equal{
-  background:var(--button);
-  color:var(--buttonText);
+.categories{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:10px;
+  margin:20px 0 35px;
 }
 
-#display{
-  height:55px;
-  font-size:24px;
+.categories button{
+  background:white;
+  color:#222;
+  border:2px solid #ddd;
+  font-size:17px;
+}
+
+.categories button.active{
+  background:#222;
+  color:white;
+}
+
+.dark .categories button{
+  background:#222;
+  color:#eee;
+  border-color:#444;
+}
+
+.dark .categories button.active{
+  background:white;
+  color:#222;
+}
+
+.tools{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:22px;
+}
+
+.tool{
+  background:white;
+  border-radius:22px;
+  padding:25px;
+  box-shadow:0 3px 12px rgba(0,0,0,0.08);
+  border:1px solid #ddd;
+}
+
+.dark .tool{
+  background:#1e1e1e;
+  border-color:#333;
+}
+
+.tool h2{
+  margin-top:0;
+  font-size:28px;
+}
+
+.tool input,
+.tool select{
+  width:100%;
+  padding:14px;
+  margin:8px 0;
+  border:2px solid #ddd;
+  border-radius:10px;
+  font-size:17px;
+}
+
+.result{
+  margin-top:12px;
+  padding:14px;
+  background:#f1f3f5;
+  border-radius:10px;
+  font-size:18px;
+  min-height:25px;
+}
+
+.dark .result{
+  background:#292929;
+}
+
+.small-buttons{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
+.small-buttons button{
+  flex:1;
+}
+
+.reset{
+  background:#777;
+}
+
+.copy{
+  background:#087f5b;
+}
+
+.calc-display{
+  width:100%;
+  padding:18px;
+  font-size:26px;
   text-align:right;
+  border:2px solid #ddd;
+  border-radius:12px;
+  margin-bottom:12px;
 }
 
-.buttons{
+.calc-buttons{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:8px;
 }
 
-.password-box{
-  display:flex;
-  gap:8px;
+.calc-buttons button{
+  padding:18px 5px;
+  font-size:20px;
+  background:#e9ecef;
+  color:#222;
 }
 
-.password-box input{
-  flex:1;
+.calc-buttons button.operator{
+  background:#333;
+  color:white;
 }
 
-.options label{
-  display:block;
-  margin:8px 0;
-}
-
-#length{
-  width:100%;
-}
-
-.result{
-  text-align:center;
-  font-size:23px;
-  margin:15px 0;
-  min-height:30px;
-}
-
-.timer{
-  text-align:center;
-  font-size:40px;
-  font-weight:bold;
-  margin:20px 0;
-}
-
-.timer-buttons{
-  display:flex;
-  gap:8px;
-}
-
-.timer-buttons button{
-  flex:1;
-}
-
-.qr-box{
-  text-align:center;
-  margin-top:15px;
+.calc-buttons button.clear{
+  background:#dc3545;
+  color:white;
 }
 
 #qrcode{
-  display:inline-block;
+  margin-top:15px;
   padding:10px;
   background:white;
-}
-
-.hide{
-  display:none;
+  display:inline-block;
 }
 
 footer{
-  max-width:900px;
-  margin:35px auto 10px;
   text-align:center;
-  color:var(--muted);
+  padding:30px 15px;
+  color:#777;
 }
 
-@media(max-width:500px){
+.back-top{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  display:none;
+  padding:0;
+  font-size:22px;
+  z-index:99;
+}
 
-  body{
-    padding:12px;
-  }
+.hidden{
+  display:none !important;
+}
+
+@media(max-width:700px){
 
   header h1{
-    font-size:27px;
+    font-size:32px;
+  }
+
+  header p{
+    font-size:17px;
   }
 
   .container{
+    padding:5px 12px 40px;
+  }
+
+  .tools{
     grid-template-columns:1fr;
   }
 
   .tool{
-    padding:16px;
+    padding:18px;
   }
 
-  .timer{
-    font-size:34px;
+  .tool h2{
+    font-size:25px;
+  }
+
+  .categories button{
+    padding:11px 15px;
+  }
+
+  .search{
+    font-size:17px;
   }
 }
 </style>
@@ -284,363 +306,212 @@ footer{
 <p>Simple, fast and useful tools in one place</p>
 
 <div class="top-buttons">
-
-<button onclick="toggleDarkMode()" id="darkBtn">
-🌙 Dark Mode
-</button>
-
+<button class="dark-btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
 </div>
 
 </header>
 
-
-<div class="search">
+<div class="container">
 
 <input
-type="text"
+class="search"
 id="search"
+type="text"
 placeholder="🔎 Search tools..."
-oninput="searchTools()">
-
-</div>
-
+oninput="searchTools()"
+>
 
 <div class="categories">
 
-<button class="category-btn active"
-onclick="filterCategory('all',this)">
-All
-</button>
-
-<button class="category-btn"
-onclick="filterCategory('math',this)">
-🔢 Math
-</button>
-
-<button class="category-btn"
-onclick="filterCategory('security',this)">
-🔐 Security
-</button>
-
-<button class="category-btn"
-onclick="filterCategory('time',this)">
-⏱️ Time
-</button>
-
-<button class="category-btn"
-onclick="filterCategory('converter',this)">
-📏 Converter
-</button>
-
-<button class="category-btn"
-onclick="filterCategory('personal',this)">
-🎂 Personal
-</button>
+<button class="active" onclick="filterCategory('all',this)">All</button>
+<button onclick="filterCategory('math',this)">🔢 Math</button>
+<button onclick="filterCategory('security',this)">🔐 Security</button>
+<button onclick="filterCategory('time',this)">⏱️ Time</button>
+<button onclick="filterCategory('converter',this)">📏 Converter</button>
+<button onclick="filterCategory('personal',this)">🎂 Personal</button>
 
 </div>
 
+<div class="tools">
 
-<div class="container">
+<!-- Calculator -->
 
-
-<!-- CALCULATOR -->
-
-<div class="tool" data-category="math">
+<div class="tool" data-category="math" data-name="calculator">
 
 <h2>🧮 Calculator</h2>
 
-<input id="display" readonly>
+<input id="calcDisplay" class="calc-display" readonly>
 
-<div class="buttons">
+<div class="calc-buttons">
 
-<button class="clear"
-onclick="clearDisplay()">C</button>
+<button class="clear" onclick="clearCalc()">C</button>
+<button onclick="backspace()">⌫</button>
+<button onclick="calcInput('%')">%</button>
+<button class="operator" onclick="calcInput('/')">÷</button>
 
-<button onclick="deleteLast()">⌫</button>
+<button onclick="calcInput('7')">7</button>
+<button onclick="calcInput('8')">8</button>
+<button onclick="calcInput('9')">9</button>
+<button class="operator" onclick="calcInput('*')">×</button>
 
-<button onclick="addValue('%')">%</button>
+<button onclick="calcInput('4')">4</button>
+<button onclick="calcInput('5')">5</button>
+<button onclick="calcInput('6')">6</button>
+<button class="operator" onclick="calcInput('-')">−</button>
 
-<button onclick="addValue('/')">÷</button>
+<button onclick="calcInput('1')">1</button>
+<button onclick="calcInput('2')">2</button>
+<button onclick="calcInput('3')">3</button>
+<button class="operator" onclick="calcInput('+')">+</button>
 
-<button onclick="addValue('7')">7</button>
-<button onclick="addValue('8')">8</button>
-<button onclick="addValue('9')">9</button>
-<button onclick="addValue('*')">×</button>
-
-<button onclick="addValue('4')">4</button>
-<button onclick="addValue('5')">5</button>
-<button onclick="addValue('6')">6</button>
-<button onclick="addValue('-')">−</button>
-
-<button onclick="addValue('1')">1</button>
-<button onclick="addValue('2')">2</button>
-<button onclick="addValue('3')">3</button>
-<button onclick="addValue('+')">+</button>
-
-<button onclick="addValue('0')">0</button>
-<button onclick="addValue('.')">.</button>
-
-<button class="equal"
-onclick="calculate()">=</button>
+<button onclick="calcInput('0')">0</button>
+<button onclick="calcInput('.')">.</button>
+<button onclick="calculate()">=</button>
 
 </div>
+
 </div>
 
 
-<!-- PASSWORD -->
+<!-- Password -->
 
-<div class="tool" data-category="security">
+<div class="tool" data-category="security" data-name="password generator">
 
 <h2>🔐 Password Generator</h2>
 
-<div class="password-box">
+<input id="passwordLength" type="number" value="12" min="4" max="50">
 
-<input id="password"
-placeholder="Your password"
-readonly>
+<div class="small-buttons">
 
-<button onclick="copyPassword()">📋</button>
-
-</div>
-
-<div class="options">
-
-<label>
-Password Length:
-<span id="lengthValue">12</span>
-</label>
-
-<input
-type="range"
-id="length"
-min="6"
-max="30"
-value="12"
-oninput="updateLength()">
-
-<label>
-<input type="checkbox"
-id="uppercase" checked>
-Uppercase
-</label>
-
-<label>
-<input type="checkbox"
-id="lowercase" checked>
-Lowercase
-</label>
-
-<label>
-<input type="checkbox"
-id="numbers" checked>
-Numbers
-</label>
-
-<label>
-<input type="checkbox"
-id="symbols" checked>
-Symbols
-</label>
+<button onclick="generatePassword()">Generate</button>
+<button class="copy" onclick="copyText('passwordResult')">📋 Copy</button>
 
 </div>
 
-<button class="generate"
-onclick="generatePassword()">
-Generate Password
-</button>
+<div id="passwordResult" class="result"></div>
 
 </div>
 
 
-<!-- RANDOM NUMBER -->
+<!-- Random Number -->
 
-<div class="tool" data-category="math">
+<div class="tool" data-category="math" data-name="random number generator">
 
-<h2>🎲 Random Number Generator</h2>
+<h2>🎲 Random Number</h2>
 
-<input
-type="number"
-id="min"
-placeholder="Minimum number">
+<input id="minNumber" type="number" placeholder="Minimum">
 
-<input
-type="number"
-id="max"
-placeholder="Maximum number">
+<input id="maxNumber" type="number" placeholder="Maximum">
 
-<div class="result"
-id="randomOut"></div>
+<button onclick="randomNumber()">Generate</button>
 
-<button class="generate"
-onclick="randomNum()">
-Generate Number
-</button>
+<div id="randomResult" class="result"></div>
 
 </div>
 
 
-<!-- TIMER -->
+<!-- Timer -->
 
-<div class="tool" data-category="time">
+<div class="tool" data-category="time" data-name="countdown timer">
 
 <h2>⏱️ Countdown Timer</h2>
 
-<input
-type="number"
-id="seconds"
-placeholder="Enter seconds"
-min="1">
+<input id="timerInput" type="number" placeholder="Seconds">
 
-<div class="timer"
-id="timerOut">
-00:00
-</div>
-
-<div class="timer-buttons">
+<div class="small-buttons">
 
 <button onclick="startTimer()">Start</button>
-<button onclick="stopTimer()">Stop</button>
-<button onclick="resetTimer()">Reset</button>
+<button class="reset" onclick="resetTimer()">Reset</button>
 
 </div>
 
+<div id="timerResult" class="result">00:00</div>
+
 </div>
 
 
-<!-- UNIT CONVERTER -->
+<!-- Unit Converter -->
 
-<div class="tool" data-category="converter">
+<div class="tool" data-category="converter" data-name="unit converter">
 
 <h2>📏 Unit Converter</h2>
 
-<input
-type="number"
-id="unitValue"
-placeholder="Enter value">
+<input id="unitValue" type="number" placeholder="Enter value">
 
 <select id="unitType">
 
-<option value="km-miles">
-Kilometers → Miles
-</option>
-
-<option value="miles-km">
-Miles → Kilometers
-</option>
-
-<option value="kg-lb">
-Kilograms → Pounds
-</option>
-
-<option value="lb-kg">
-Pounds → Kilograms
-</option>
-
-<option value="m-ft">
-Meters → Feet
-</option>
-
-<option value="ft-m">
-Feet → Meters
-</option>
-
-<option value="c-f">
-Celsius → Fahrenheit
-</option>
-
-<option value="f-c">
-Fahrenheit → Celsius
-</option>
+<option value="km">Kilometers → Miles</option>
+<option value="miles">Miles → Kilometers</option>
+<option value="kg">Kilograms → Pounds</option>
+<option value="pounds">Pounds → Kilograms</option>
 
 </select>
 
-<div class="result"
-id="unitResult"></div>
+<button onclick="convertUnit()">Convert</button>
 
-<button class="generate"
-onclick="convertUnit()">
-Convert
-</button>
+<div id="unitResult" class="result"></div>
 
 </div>
 
 
 <!-- BMI -->
 
-<div class="tool" data-category="personal">
+<div class="tool" data-category="personal" data-name="bmi calculator">
 
 <h2>⚖️ BMI Calculator</h2>
 
-<input
-type="number"
-id="weight"
-placeholder="Weight in kg">
+<input id="weight" type="number" placeholder="Weight (kg)">
 
-<input
-type="number"
-id="height"
-placeholder="Height in cm">
+<input id="height" type="number" placeholder="Height (cm)">
 
-<div class="result"
-id="bmiResult"></div>
+<button onclick="calculateBMI()">Calculate BMI</button>
 
-<button class="generate"
-onclick="calculateBMI()">
-Calculate BMI
-</button>
+<div id="bmiResult" class="result"></div>
 
 </div>
 
 
-<!-- AGE -->
+<!-- Age -->
 
-<div class="tool" data-category="personal">
+<div class="tool" data-category="personal" data-name="age calculator">
 
 <h2>🎂 Age Calculator</h2>
 
-<input
-type="date"
-id="birthDate">
+<input id="birthDate" type="date">
 
-<div class="result"
-id="ageResult"></div>
+<button onclick="calculateAge()">Calculate Age</button>
 
-<button class="generate"
-onclick="calculateAge()">
-Calculate Age
-</button>
+<div id="ageResult" class="result"></div>
 
 </div>
 
 
 <!-- QR -->
 
-<div class="tool" data-category="security">
+<div class="tool" data-category="security" data-name="qr code generator">
 
-<h2>🔳 QR Code Generator</h2>
+<h2>📱 QR Code Generator</h2>
 
-<input
-type="text"
-id="qrText"
-placeholder="Enter text or website">
+<input id="qrText" type="text" placeholder="Enter text or URL">
 
-<button class="generate"
-onclick="generateQR()">
-Generate QR Code
-</button>
+<button onclick="generateQR()">Generate QR</button>
 
-<div class="qr-box">
 <div id="qrcode"></div>
-</div>
 
 </div>
 
 </div>
 
+</div>
 
 <footer>
-<p>© 2026 Useful Online Tools</p>
+
+© 2026 Useful Online Tools<br>
+Made with ❤️ using HTML, CSS & JavaScript
+
 </footer>
+
+<button class="back-top" id="backTop" onclick="window.scrollTo(0,0)">↑</button>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -653,65 +524,55 @@ function toggleDarkMode(){
 
 document.body.classList.toggle("dark");
 
-const dark=
-document.body.classList.contains("dark");
-
-localStorage.setItem("darkMode",dark);
-
-document.getElementById("darkBtn").textContent=
-dark ? "☀️ Light Mode" : "🌙 Dark Mode";
+if(document.body.classList.contains("dark")){
+localStorage.setItem("darkMode","on");
+}else{
+localStorage.setItem("darkMode","off");
 }
 
-if(localStorage.getItem("darkMode")==="true"){
+}
 
+if(localStorage.getItem("darkMode")==="on"){
 document.body.classList.add("dark");
-
-document.getElementById("darkBtn").textContent=
-"☀️ Light Mode";
-
 }
 
 
 /* CALCULATOR */
 
-const display=
-document.getElementById("display");
+let calc="";
 
-function addValue(value){
-display.value+=value;
+function calcInput(value){
+
+calc += value;
+document.getElementById("calcDisplay").value=calc;
+
 }
 
-function clearDisplay(){
-display.value="";
+function clearCalc(){
+
+calc="";
+document.getElementById("calcDisplay").value="";
+
 }
 
-function deleteLast(){
-display.value=
-display.value.slice(0,-1);
+function backspace(){
+
+calc=calc.slice(0,-1);
+document.getElementById("calcDisplay").value=calc;
+
 }
 
 function calculate(){
 
 try{
 
-if(display.value==="") return;
+calc=String(eval(calc));
+document.getElementById("calcDisplay").value=calc;
 
-if(!/^[0-9+\-*/%.() ]+$/.test(display.value)){
+}catch{
 
-display.value="Error";
-return;
-}
-
-display.value=
-Function(
-'"use strict";return ('+
-display.value+
-')'
-)();
-
-}catch(error){
-
-display.value="Error";
+document.getElementById("calcDisplay").value="Error";
+calc="";
 
 }
 
@@ -720,154 +581,84 @@ display.value="Error";
 
 /* PASSWORD */
 
-function updateLength(){
-
-document.getElementById("lengthValue")
-.textContent=
-document.getElementById("length").value;
-
-}
-
 function generatePassword(){
 
-const length=
-parseInt(
-document.getElementById("length").value
-);
+let length=parseInt(document.getElementById("passwordLength").value);
 
-let chars="";
-
-if(document.getElementById("uppercase").checked)
-chars+="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-if(document.getElementById("lowercase").checked)
-chars+="abcdefghijklmnopqrstuvwxyz";
-
-if(document.getElementById("numbers").checked)
-chars+="0123456789";
-
-if(document.getElementById("symbols").checked)
-chars+="!@#$%^&*()_+-=[]{}|;:,.<>?";
-
-if(chars===""){
-
-alert("Please select at least one option.");
-return;
-
-}
+let chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
 
 let password="";
 
 for(let i=0;i<length;i++){
 
-password+=
-chars[
-Math.floor(
-Math.random()*chars.length
-)
-];
+password += chars.charAt(Math.floor(Math.random()*chars.length));
 
 }
 
-document.getElementById("password")
-.value=password;
-
-}
-
-function copyPassword(){
-
-const password=
-document.getElementById("password").value;
-
-if(password===""){
-
-alert("First generate a password.");
-return;
-
-}
-
-navigator.clipboard.writeText(password)
-.then(()=>{
-alert("Password copied!");
-})
-.catch(()=>{
-alert("Copy failed.");
-});
+document.getElementById("passwordResult").textContent=password;
 
 }
 
 
 /* RANDOM NUMBER */
 
-function randomNum(){
+function randomNumber(){
 
-const min=
-parseInt(document.getElementById("min").value);
+let min=parseInt(document.getElementById("minNumber").value);
+let max=parseInt(document.getElementById("maxNumber").value);
 
-const max=
-parseInt(document.getElementById("max").value);
+if(isNaN(min)||isNaN(max)){
 
-const output=
-document.getElementById("randomOut");
-
-if(isNaN(min)||isNaN(max)||min>max){
-
-output.textContent=
-"Enter valid numbers";
-
+document.getElementById("randomResult").textContent="Please enter both numbers.";
 return;
 
 }
 
-const number=
-Math.floor(
-Math.random()*(max-min+1)
-)+min;
+if(min>max){
 
-output.textContent=
-"Number: "+number;
+[min,max]=[max,min];
+
+}
+
+let number=Math.floor(Math.random()*(max-min+1))+min;
+
+document.getElementById("randomResult").textContent=number;
 
 }
 
 
 /* TIMER */
 
-let timer;
-let remaining=0;
+let timerInterval;
 
 function startTimer(){
 
-const input=
-parseInt(
-document.getElementById("seconds").value
-);
+clearInterval(timerInterval);
 
-if(isNaN(input)||input<=0){
+let seconds=parseInt(document.getElementById("timerInput").value);
 
-alert("Enter valid seconds.");
+if(isNaN(seconds)||seconds<=0){
+
+alert("Please enter seconds.");
 return;
 
 }
 
-if(remaining<=0)
-remaining=input;
+timerInterval=setInterval(function(){
 
-clearInterval(timer);
+let min=Math.floor(seconds/60);
+let sec=seconds%60;
 
-showTime();
+document.getElementById("timerResult").textContent=
+String(min).padStart(2,"0")+":"+
+String(sec).padStart(2,"0");
 
-timer=setInterval(function(){
+seconds--;
 
-remaining--;
+if(seconds<0){
 
-showTime();
-
-if(remaining<=0){
-
-clearInterval(timer);
-
-document.getElementById("timerOut")
-.textContent="⏰ Time Up!";
+clearInterval(timerInterval);
+document.getElementById("timerResult").textContent="Time Up! 🔔";
 
 }
 
@@ -875,35 +666,12 @@ document.getElementById("timerOut")
 
 }
 
-function showTime(){
-
-const minutes=
-Math.floor(remaining/60);
-
-const seconds=
-remaining%60;
-
-document.getElementById("timerOut")
-.textContent=
-String(minutes).padStart(2,"0")
-+":"
-+
-String(seconds).padStart(2,"0");
-
-}
-
-function stopTimer(){
-clearInterval(timer);
-}
-
 function resetTimer(){
 
-clearInterval(timer);
+clearInterval(timerInterval);
 
-remaining=0;
-
-document.getElementById("timerOut")
-.textContent="00:00";
+document.getElementById("timerResult").textContent="00:00";
+document.getElementById("timerInput").value="";
 
 }
 
@@ -912,52 +680,34 @@ document.getElementById("timerOut")
 
 function convertUnit(){
 
-const value=
-parseFloat(
-document.getElementById("unitValue").value
-);
-
-const type=
-document.getElementById("unitType").value;
-
-const result=
-document.getElementById("unitResult");
+let value=parseFloat(document.getElementById("unitValue").value);
+let type=document.getElementById("unitType").value;
+let result;
 
 if(isNaN(value)){
 
-result.textContent="Enter a value";
+document.getElementById("unitResult").textContent="Please enter a value.";
 return;
 
 }
 
-let answer;
+if(type==="km"){
+result=value*0.621371+" miles";
+}
 
-if(type==="km-miles")
-answer=value*0.621371;
+if(type==="miles"){
+result=value*1.60934+" km";
+}
 
-else if(type==="miles-km")
-answer=value*1.609344;
+if(type==="kg"){
+result=value*2.20462+" pounds";
+}
 
-else if(type==="kg-lb")
-answer=value*2.20462;
+if(type==="pounds"){
+result=value*0.453592+" kg";
+}
 
-else if(type==="lb-kg")
-answer=value*0.453592;
-
-else if(type==="m-ft")
-answer=value*3.28084;
-
-else if(type==="ft-m")
-answer=value*0.3048;
-
-else if(type==="c-f")
-answer=(value*9/5)+32;
-
-else if(type==="f-c")
-answer=(value-32)*5/9;
-
-result.textContent=
-"Result: "+answer.toFixed(2);
+document.getElementById("unitResult").textContent=result;
 
 }
 
@@ -966,51 +716,27 @@ result.textContent=
 
 function calculateBMI(){
 
-const weight=
-parseFloat(
-document.getElementById("weight").value
-);
-
-const height=
-parseFloat(
-document.getElementById("height").value
-);
-
-const result=
-document.getElementById("bmiResult");
+let weight=parseFloat(document.getElementById("weight").value);
+let height=parseFloat(document.getElementById("height").value);
 
 if(isNaN(weight)||isNaN(height)||height<=0){
 
-result.textContent="Enter valid values";
+document.getElementById("bmiResult").textContent="Please enter valid values.";
 return;
 
 }
 
-const heightM=height/100;
+let bmi=weight/((height/100)*(height/100));
 
-const bmi=
-weight/(heightM*heightM);
+let status="";
 
-let category;
+if(bmi<18.5) status="Underweight";
+else if(bmi<25) status="Normal";
+else if(bmi<30) status="Overweight";
+else status="Obesity";
 
-if(bmi<18.5)
-category="Underweight";
-
-else if(bmi<25)
-category="Normal";
-
-else if(bmi<30)
-category="Overweight";
-
-else
-category="Obese";
-
-result.textContent=
-"BMI: "+
-bmi.toFixed(1)+
-" ("+
-category+
-")";
+document.getElementById("bmiResult").textContent=
+"BMI: "+bmi.toFixed(2)+" — "+status;
 
 }
 
@@ -1019,73 +745,50 @@ category+
 
 function calculateAge(){
 
-const birth=
-document.getElementById("birthDate").value;
-
-const result=
-document.getElementById("ageResult");
+let birth=document.getElementById("birthDate").value;
 
 if(!birth){
 
-result.textContent=
-"Select your birth date";
-
+document.getElementById("ageResult").textContent="Please select your birth date.";
 return;
 
 }
 
-const birthDate=
-new Date(birth);
+let birthDate=new Date(birth);
+let today=new Date();
 
-const today=
-new Date();
+let age=today.getFullYear()-birthDate.getFullYear();
 
-let age=
-today.getFullYear()-
-birthDate.getFullYear();
+let month=today.getMonth()-birthDate.getMonth();
 
-const month=
-today.getMonth()-
-birthDate.getMonth();
-
-if(
-month<0 ||
-(
-month===0 &&
-today.getDate()<birthDate.getDate()
-)
-){
-
+if(month<0 || (month===0 && today.getDate()<birthDate.getDate())){
 age--;
+}
+
+document.getElementById("ageResult").textContent=
+"Your age is "+age+" years.";
 
 }
 
-result.textContent=
-"Your age: "+age+" years";
 
-}
-
-
-/* QR */
+/* QR CODE */
 
 function generateQR(){
 
-const text=
-document.getElementById("qrText").value;
+let text=document.getElementById("qrText").value;
 
-const box=
-document.getElementById("qrcode");
+let qr=document.getElementById("qrcode");
 
-box.innerHTML="";
+qr.innerHTML="";
 
-if(text.trim()===""){
+if(!text){
 
-alert("Enter text or website.");
+qr.innerHTML="<p>Please enter text or URL.</p>";
 return;
 
 }
 
-new QRCode(box,{
+new QRCode(qr,{
 
 text:text,
 width:180,
@@ -1096,38 +799,50 @@ height:180
 }
 
 
-/* CATEGORY FILTER */
+/* COPY */
+
+function copyText(id){
+
+let text=document.getElementById(id).textContent;
+
+if(!text){
+
+alert("Nothing to copy.");
+return;
+
+}
+
+navigator.clipboard.writeText(text).then(function(){
+
+alert("Copied! ✅");
+
+});
+
+}
+
+
+/* CATEGORY */
 
 function filterCategory(category,button){
 
-document
-.querySelectorAll(".category-btn")
-.forEach(btn=>{
-btn.classList.remove("active");
-});
+document.querySelectorAll(".categories button")
+.forEach(btn=>btn.classList.remove("active"));
 
 button.classList.add("active");
 
-document
-.querySelectorAll(".tool")
-.forEach(tool=>{
+document.querySelectorAll(".tool").forEach(tool=>{
 
-if(
-category==="all" ||
-tool.dataset.category===category
-){
+if(category==="all" || tool.dataset.category===category){
 
-tool.classList.remove("hide");
+tool.classList.remove("hidden");
 
 }else{
 
-tool.classList.add("hide");
+tool.classList.add("hidden");
 
 }
 
 });
-
-document.getElementById("search").value="";
 
 }
 
@@ -1136,31 +851,44 @@ document.getElementById("search").value="";
 
 function searchTools(){
 
-const search=
-document.getElementById("search")
-.value
-.toLowerCase();
+let search=document.getElementById("search").value.toLowerCase();
 
-document
-.querySelectorAll(".tool")
-.forEach(card=>{
+document.querySelectorAll(".tool").forEach(tool=>{
 
-const text=
-card.innerText.toLowerCase();
+let name=tool.dataset.name.toLowerCase();
 
-if(text.includes(search)){
+if(name.includes(search)){
 
-card.classList.remove("hide");
+tool.classList.remove("hidden");
 
 }else{
 
-card.classList.add("hide");
+tool.classList.add("hidden");
 
 }
 
 });
 
 }
+
+
+/* BACK TO TOP */
+
+window.addEventListener("scroll",function(){
+
+let btn=document.getElementById("backTop");
+
+if(window.scrollY>400){
+
+btn.style.display="block";
+
+}else{
+
+btn.style.display="none";
+
+}
+
+});
 
 </script>
 
