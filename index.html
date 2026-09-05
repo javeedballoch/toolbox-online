@@ -38,12 +38,15 @@ header p{
   margin:0 auto 20px;
 }
 
-.search input{
+.search input,
+input,
+select{
   width:100%;
-  padding:15px;
+  padding:13px;
   border:1px solid #ccc;
-  border-radius:10px;
-  font-size:17px;
+  border-radius:9px;
+  font-size:16px;
+  margin-bottom:10px;
 }
 
 .container{
@@ -65,6 +68,35 @@ header p{
   margin-bottom:15px;
 }
 
+button{
+  padding:14px;
+  font-size:17px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  background:#e9ecef;
+}
+
+button:hover{
+  background:#d6d9dc;
+}
+
+.generate{
+  width:100%;
+  background:#222;
+  color:white;
+}
+
+.clear{
+  background:#dc3545;
+  color:white;
+}
+
+.equal{
+  background:#222;
+  color:white;
+}
+
 #display{
   width:100%;
   height:55px;
@@ -82,41 +114,13 @@ header p{
   gap:8px;
 }
 
-button{
-  padding:14px;
-  font-size:18px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-  background:#e9ecef;
-}
-
-button:hover{
-  background:#d6d9dc;
-}
-
-.clear{
-  background:#dc3545;
-  color:white;
-}
-
-.equal{
-  background:#222;
-  color:white;
-}
-
 .password-box{
   display:flex;
   gap:8px;
-  margin-bottom:15px;
 }
 
-#password{
+.password-box input{
   flex:1;
-  padding:12px;
-  font-size:16px;
-  border:1px solid #ccc;
-  border-radius:8px;
 }
 
 .options label{
@@ -126,37 +130,20 @@ button:hover{
 
 #length{
   width:100%;
-  margin-bottom:10px;
-}
-
-.generate{
-  width:100%;
-  background:#222;
-  color:white;
-}
-
-.number-inputs input,
-.timer-input{
-  width:100%;
-  padding:12px;
-  margin-bottom:10px;
-  border:1px solid #ccc;
-  border-radius:8px;
-  font-size:16px;
 }
 
 .result{
-  font-size:24px;
   text-align:center;
+  font-size:24px;
   margin:15px 0;
   min-height:30px;
 }
 
 .timer{
-  font-size:40px;
   text-align:center;
-  margin:20px 0;
+  font-size:40px;
   font-weight:bold;
+  margin:20px 0;
 }
 
 .timer-buttons{
@@ -168,6 +155,16 @@ button:hover{
   flex:1;
 }
 
+.qr-box{
+  text-align:center;
+  margin-top:15px;
+}
+
+#qrcode{
+  display:inline-block;
+  padding:10px;
+}
+
 .hide{
   display:none;
 }
@@ -177,367 +174,531 @@ button:hover{
 <body>
 
 <header>
-  <h1>Useful Online Tools</h1>
-  <p>Simple and useful tools in one place</p>
+<h1>Useful Online Tools</h1>
+<p>Simple and useful tools in one place</p>
 </header>
 
-<!-- Tool Search -->
 <div class="search">
-  <input
-    type="text"
-    id="search"
-    placeholder="🔎 Search tools..."
-    oninput="searchTools()"
-  >
+<input
+id="search"
+placeholder="🔎 Search tools..."
+oninput="searchTools()">
 </div>
 
 <div class="container">
 
-<!-- Calculator -->
+<!-- CALCULATOR -->
 <div class="tool">
-  <h2>🧮 Calculator</h2>
+<h2>🧮 Calculator</h2>
 
-  <input type="text" id="display" readonly>
+<input id="display" readonly>
 
-  <div class="buttons">
-    <button class="clear" onclick="clearDisplay()">C</button>
-    <button onclick="deleteLast()">⌫</button>
-    <button onclick="addValue('%')">%</button>
-    <button onclick="addValue('/')">÷</button>
+<div class="buttons">
+<button class="clear" onclick="clearDisplay()">C</button>
+<button onclick="deleteLast()">⌫</button>
+<button onclick="addValue('%')">%</button>
+<button onclick="addValue('/')">÷</button>
 
-    <button onclick="addValue('7')">7</button>
-    <button onclick="addValue('8')">8</button>
-    <button onclick="addValue('9')">9</button>
-    <button onclick="addValue('*')">×</button>
+<button onclick="addValue('7')">7</button>
+<button onclick="addValue('8')">8</button>
+<button onclick="addValue('9')">9</button>
+<button onclick="addValue('*')">×</button>
 
-    <button onclick="addValue('4')">4</button>
-    <button onclick="addValue('5')">5</button>
-    <button onclick="addValue('6')">6</button>
-    <button onclick="addValue('-')">−</button>
+<button onclick="addValue('4')">4</button>
+<button onclick="addValue('5')">5</button>
+<button onclick="addValue('6')">6</button>
+<button onclick="addValue('-')">−</button>
 
-    <button onclick="addValue('1')">1</button>
-    <button onclick="addValue('2')">2</button>
-    <button onclick="addValue('3')">3</button>
-    <button onclick="addValue('+')">+</button>
+<button onclick="addValue('1')">1</button>
+<button onclick="addValue('2')">2</button>
+<button onclick="addValue('3')">3</button>
+<button onclick="addValue('+')">+</button>
 
-    <button onclick="addValue('0')">0</button>
-    <button onclick="addValue('.')">.</button>
-    <button class="equal" onclick="calculate()">=</button>
-  </div>
+<button onclick="addValue('0')">0</button>
+<button onclick="addValue('.')">.</button>
+<button class="equal" onclick="calculate()">=</button>
+</div>
 </div>
 
 
-<!-- Password Generator -->
+<!-- PASSWORD -->
 <div class="tool">
-  <h2>🔐 Password Generator</h2>
+<h2>🔐 Password Generator</h2>
 
-  <div class="password-box">
-    <input id="password" placeholder="Your password" readonly>
-    <button onclick="copyPassword()">📋</button>
-  </div>
+<div class="password-box">
+<input id="password" placeholder="Your password" readonly>
+<button onclick="copyPassword()">📋</button>
+</div>
 
-  <div class="options">
-    <label>Password Length: <span id="lengthValue">12</span></label>
+<div class="options">
+<label>Password Length: <span id="lengthValue">12</span></label>
 
-    <input
-      type="range"
-      id="length"
-      min="6"
-      max="30"
-      value="12"
-      oninput="updateLength()"
-    >
+<input type="range"
+id="length"
+min="6"
+max="30"
+value="12"
+oninput="updateLength()">
 
-    <label>
-      <input type="checkbox" id="uppercase" checked>
-      Uppercase (A-Z)
-    </label>
+<label><input type="checkbox" id="uppercase" checked> Uppercase (A-Z)</label>
+<label><input type="checkbox" id="lowercase" checked> Lowercase (a-z)</label>
+<label><input type="checkbox" id="numbers" checked> Numbers (0-9)</label>
+<label><input type="checkbox" id="symbols" checked> Symbols (!@#$)</label>
+</div>
 
-    <label>
-      <input type="checkbox" id="lowercase" checked>
-      Lowercase (a-z)
-    </label>
-
-    <label>
-      <input type="checkbox" id="numbers" checked>
-      Numbers (0-9)
-    </label>
-
-    <label>
-      <input type="checkbox" id="symbols" checked>
-      Symbols (!@#$)
-    </label>
-  </div>
-
-  <button class="generate" onclick="generatePassword()">
-    Generate Password
-  </button>
+<button class="generate" onclick="generatePassword()">
+Generate Password
+</button>
 </div>
 
 
-<!-- Random Number Generator -->
+<!-- RANDOM NUMBER -->
 <div class="tool">
-  <h2>🎲 Random Number Generator</h2>
+<h2>🎲 Random Number Generator</h2>
 
-  <div class="number-inputs">
-    <input type="number" id="min" placeholder="Minimum number">
-    <input type="number" id="max" placeholder="Maximum number">
-  </div>
+<input type="number" id="min" placeholder="Minimum number">
+<input type="number" id="max" placeholder="Maximum number">
 
-  <div class="result" id="randomOut"></div>
+<div class="result" id="randomOut"></div>
 
-  <button class="generate" onclick="randomNum()">
-    Generate Number
-  </button>
+<button class="generate" onclick="randomNum()">
+Generate Number
+</button>
 </div>
 
 
-<!-- Timer -->
+<!-- TIMER -->
 <div class="tool">
-  <h2>⏱️ Countdown Timer</h2>
+<h2>⏱️ Countdown Timer</h2>
 
-  <input
-    class="timer-input"
-    type="number"
-    id="seconds"
-    placeholder="Enter seconds"
-    min="1"
-  >
+<input type="number" id="seconds" placeholder="Enter seconds" min="1">
 
-  <div class="timer" id="timerOut">00:00</div>
+<div class="timer" id="timerOut">00:00</div>
 
-  <div class="timer-buttons">
-    <button onclick="startTimer()">Start</button>
-    <button onclick="stopTimer()">Stop</button>
-    <button onclick="resetTimer()">Reset</button>
-  </div>
+<div class="timer-buttons">
+<button onclick="startTimer()">Start</button>
+<button onclick="stopTimer()">Stop</button>
+<button onclick="resetTimer()">Reset</button>
+</div>
+</div>
+
+
+<!-- UNIT CONVERTER -->
+<div class="tool">
+<h2>📏 Unit Converter</h2>
+
+<input type="number" id="unitValue" placeholder="Enter value">
+
+<select id="unitType">
+<option value="km-miles">Kilometers → Miles</option>
+<option value="miles-km">Miles → Kilometers</option>
+<option value="kg-lb">Kilograms → Pounds</option>
+<option value="lb-kg">Pounds → Kilograms</option>
+<option value="m-ft">Meters → Feet</option>
+<option value="ft-m">Feet → Meters</option>
+<option value="c-f">Celsius → Fahrenheit</option>
+<option value="f-c">Fahrenheit → Celsius</option>
+</select>
+
+<div class="result" id="unitResult"></div>
+
+<button class="generate" onclick="convertUnit()">
+Convert
+</button>
+</div>
+
+
+<!-- BMI -->
+<div class="tool">
+<h2>⚖️ BMI Calculator</h2>
+
+<input type="number" id="weight" placeholder="Weight in kg">
+<input type="number" id="height" placeholder="Height in cm">
+
+<div class="result" id="bmiResult"></div>
+
+<button class="generate" onclick="calculateBMI()">
+Calculate BMI
+</button>
+</div>
+
+
+<!-- AGE -->
+<div class="tool">
+<h2>🎂 Age Calculator</h2>
+
+<input type="date" id="birthDate">
+
+<div class="result" id="ageResult"></div>
+
+<button class="generate" onclick="calculateAge()">
+Calculate Age
+</button>
+</div>
+
+
+<!-- QR CODE -->
+<div class="tool">
+<h2>🔳 QR Code Generator</h2>
+
+<input
+type="text"
+id="qrText"
+placeholder="Enter text or website">
+
+<button class="generate" onclick="generateQR()">
+Generate QR Code
+</button>
+
+<div class="qr-box">
+<div id="qrcode"></div>
+</div>
 </div>
 
 </div>
 
+
+<!-- QR CODE LIBRARY -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script>
 
-/* =========================
-   CALCULATOR
-========================= */
+/* CALCULATOR */
 
-const display = document.getElementById("display");
+const display=document.getElementById("display");
 
 function addValue(value){
-  display.value += value;
+display.value+=value;
 }
 
 function clearDisplay(){
-  display.value = "";
+display.value="";
 }
 
 function deleteLast(){
-  display.value = display.value.slice(0,-1);
+display.value=display.value.slice(0,-1);
 }
 
 function calculate(){
-  try{
-    if(display.value === "") return;
+try{
+if(display.value==="") return;
 
-    if(!/^[0-9+\-*/%.() ]+$/.test(display.value)){
-      display.value = "Error";
-      return;
-    }
+if(!/^[0-9+\-*/%.() ]+$/.test(display.value)){
+display.value="Error";
+return;
+}
 
-    display.value = Function(
-      '"use strict"; return (' + display.value + ')'
-    )();
-  }
-  catch(error){
-    display.value = "Error";
-  }
+display.value=Function(
+'"use strict";return ('+display.value+')'
+)();
+
+}catch(error){
+display.value="Error";
+}
 }
 
 
-/* =========================
-   PASSWORD GENERATOR
-========================= */
+/* PASSWORD */
 
 function updateLength(){
-  document.getElementById("lengthValue").textContent =
-    document.getElementById("length").value;
+document.getElementById("lengthValue").textContent=
+document.getElementById("length").value;
 }
 
 function generatePassword(){
 
-  const length =
-    parseInt(document.getElementById("length").value);
+const length=parseInt(
+document.getElementById("length").value
+);
 
-  let chars = "";
+let chars="";
 
-  if(document.getElementById("uppercase").checked)
-    chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+if(document.getElementById("uppercase").checked)
+chars+="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-  if(document.getElementById("lowercase").checked)
-    chars += "abcdefghijklmnopqrstuvwxyz";
+if(document.getElementById("lowercase").checked)
+chars+="abcdefghijklmnopqrstuvwxyz";
 
-  if(document.getElementById("numbers").checked)
-    chars += "0123456789";
+if(document.getElementById("numbers").checked)
+chars+="0123456789";
 
-  if(document.getElementById("symbols").checked)
-    chars += "!@#$%^&*()_+-=[]{}|;:,.<>?";
+if(document.getElementById("symbols").checked)
+chars+="!@#$%^&*()_+-=[]{}|;:,.<>?";
 
-  if(chars === ""){
-    alert("Please select at least one option.");
-    return;
-  }
+if(chars===""){
+alert("Please select at least one option.");
+return;
+}
 
-  let password = "";
+let password="";
 
-  for(let i=0;i<length;i++){
-    const random =
-      Math.floor(Math.random()*chars.length);
+for(let i=0;i<length;i++){
+password+=chars[
+Math.floor(Math.random()*chars.length)
+];
+}
 
-    password += chars[random];
-  }
-
-  document.getElementById("password").value = password;
+document.getElementById("password").value=password;
 }
 
 function copyPassword(){
 
-  const password =
-    document.getElementById("password").value;
+const password=
+document.getElementById("password").value;
 
-  if(password === ""){
-    alert("First generate a password.");
-    return;
-  }
+if(password===""){
+alert("First generate a password.");
+return;
+}
 
-  navigator.clipboard.writeText(password)
-    .then(()=>{
-      alert("Password copied!");
-    })
-    .catch(()=>{
-      alert("Copy failed. Copy manually.");
-    });
+navigator.clipboard.writeText(password)
+.then(()=>alert("Password copied!"))
+.catch(()=>alert("Copy failed."));
 }
 
 
-/* =========================
-   RANDOM NUMBER
-========================= */
+/* RANDOM NUMBER */
 
 function randomNum(){
 
-  const min =
-    parseInt(document.getElementById("min").value);
+const min=parseInt(document.getElementById("min").value);
+const max=parseInt(document.getElementById("max").value);
+const output=document.getElementById("randomOut");
 
-  const max =
-    parseInt(document.getElementById("max").value);
+if(isNaN(min)||isNaN(max)||min>max){
+output.textContent="Enter valid numbers";
+return;
+}
 
-  const output =
-    document.getElementById("randomOut");
+const number=
+Math.floor(Math.random()*(max-min+1))+min;
 
-  if(isNaN(min) || isNaN(max) || min > max){
-    output.textContent = "Enter valid numbers";
-    return;
-  }
-
-  const number =
-    Math.floor(Math.random()*(max-min+1))+min;
-
-  output.textContent = "Number: " + number;
+output.textContent="Number: "+number;
 }
 
 
-/* =========================
-   TIMER
-========================= */
+/* TIMER */
 
 let timer;
-let remaining = 0;
+let remaining=0;
 
 function startTimer(){
 
-  const input =
-    parseInt(document.getElementById("seconds").value);
+const input=parseInt(
+document.getElementById("seconds").value
+);
 
-  if(isNaN(input) || input <= 0){
-    alert("Enter valid seconds.");
-    return;
-  }
+if(isNaN(input)||input<=0){
+alert("Enter valid seconds.");
+return;
+}
 
-  if(remaining <= 0){
-    remaining = input;
-  }
+if(remaining<=0){
+remaining=input;
+}
 
-  clearInterval(timer);
+clearInterval(timer);
+showTime();
 
-  showTime();
+timer=setInterval(function(){
 
-  timer = setInterval(function(){
+remaining--;
+showTime();
 
-    remaining--;
+if(remaining<=0){
+clearInterval(timer);
+document.getElementById("timerOut").textContent=
+"⏰ Time Up!";
+}
 
-    showTime();
-
-    if(remaining <= 0){
-      clearInterval(timer);
-      document.getElementById("timerOut").textContent =
-        "⏰ Time Up!";
-    }
-
-  },1000);
+},1000);
 }
 
 function showTime(){
 
-  const minutes =
-    Math.floor(remaining/60);
+const minutes=Math.floor(remaining/60);
+const seconds=remaining%60;
 
-  const seconds =
-    remaining%60;
-
-  document.getElementById("timerOut").textContent =
-    String(minutes).padStart(2,"0") + ":" +
-    String(seconds).padStart(2,"0");
+document.getElementById("timerOut").textContent=
+String(minutes).padStart(2,"0")+":"+
+String(seconds).padStart(2,"0");
 }
 
 function stopTimer(){
-  clearInterval(timer);
+clearInterval(timer);
 }
 
 function resetTimer(){
 
-  clearInterval(timer);
-  remaining = 0;
+clearInterval(timer);
+remaining=0;
 
-  document.getElementById("timerOut").textContent =
-    "00:00";
+document.getElementById("timerOut").textContent="00:00";
 }
 
 
-/* =========================
-   TOOL SEARCH
-========================= */
+/* UNIT CONVERTER */
+
+function convertUnit(){
+
+const value=parseFloat(
+document.getElementById("unitValue").value
+);
+
+const type=document.getElementById("unitType").value;
+
+const result=document.getElementById("unitResult");
+
+if(isNaN(value)){
+result.textContent="Enter a value";
+return;
+}
+
+let answer;
+
+if(type==="km-miles")
+answer=value*0.621371;
+
+else if(type==="miles-km")
+answer=value*1.609344;
+
+else if(type==="kg-lb")
+answer=value*2.20462;
+
+else if(type==="lb-kg")
+answer=value*0.453592;
+
+else if(type==="m-ft")
+answer=value*3.28084;
+
+else if(type==="ft-m")
+answer=value*0.3048;
+
+else if(type==="c-f")
+answer=(value*9/5)+32;
+
+else if(type==="f-c")
+answer=(value-32)*5/9;
+
+result.textContent="Result: "+answer.toFixed(2);
+}
+
+
+/* BMI */
+
+function calculateBMI(){
+
+const weight=parseFloat(
+document.getElementById("weight").value
+);
+
+const height=parseFloat(
+document.getElementById("height").value
+);
+
+const result=document.getElementById("bmiResult");
+
+if(isNaN(weight)||isNaN(height)||height<=0){
+result.textContent="Enter valid values";
+return;
+}
+
+const heightM=height/100;
+
+const bmi=weight/(heightM*heightM);
+
+let category;
+
+if(bmi<18.5)
+category="Underweight";
+else if(bmi<25)
+category="Normal";
+else if(bmi<30)
+category="Overweight";
+else
+category="Obese";
+
+result.textContent=
+"BMI: "+bmi.toFixed(1)+" ("+category+")";
+}
+
+
+/* AGE CALCULATOR */
+
+function calculateAge(){
+
+const birth=document.getElementById("birthDate").value;
+const result=document.getElementById("ageResult");
+
+if(!birth){
+result.textContent="Select your birth date";
+return;
+}
+
+const birthDate=new Date(birth);
+const today=new Date();
+
+let age=today.getFullYear()-birthDate.getFullYear();
+
+const month=
+today.getMonth()-birthDate.getMonth();
+
+if(
+month<0 ||
+(month===0 && today.getDate()<birthDate.getDate())
+){
+age--;
+}
+
+result.textContent="Your age: "+age+" years";
+}
+
+
+/* QR CODE */
+
+function generateQR(){
+
+const text=
+document.getElementById("qrText").value;
+
+const box=document.getElementById("qrcode");
+
+box.innerHTML="";
+
+if(text.trim()===""){
+alert("Enter text or website.");
+return;
+}
+
+new QRCode(box,{
+text:text,
+width:180,
+height:180
+});
+}
+
+
+/* SEARCH */
 
 function searchTools(){
 
-  const search =
-    document.getElementById("search")
-    .value
-    .toLowerCase();
+const search=
+document.getElementById("search")
+.value
+.toLowerCase();
 
-  document.querySelectorAll(".tool").forEach(function(card){
+document.querySelectorAll(".tool")
+.forEach(function(card){
 
-    const text =
-      card.innerText.toLowerCase();
+const text=
+card.innerText.toLowerCase();
 
-    if(text.includes(search)){
-      card.classList.remove("hide");
-    }
-    else{
-      card.classList.add("hide");
-    }
+if(text.includes(search))
+card.classList.remove("hide");
+else
+card.classList.add("hide");
 
-  });
+});
 }
 
 </script>
