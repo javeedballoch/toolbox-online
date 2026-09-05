@@ -1,220 +1,223 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>ToolBox Online</title>
+<script>
 
-<style>
-*{box-sizing:border-box}
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f4f7fb;
-color:#172033
-}
-header{
-background:linear-gradient(135deg,#111827,#2563eb);
-color:white;
-text-align:center;
-padding:35px 15px
-}
-header h1{font-size:38px;margin:0 0 8px}
-header p{margin:0;color:#dbeafe;font-size:17px}
-
-.wrap{
-max-width:1100px;
-margin:auto;
-padding:20px
+function wordCount(){
+  let t=document.getElementById("wc").value;
+  document.getElementById("words").innerText =
+    t.trim()==="" ? 0 : t.trim().split(/\s+/).length;
+  document.getElementById("chars").innerText=t.length;
 }
 
-.search{
-width:100%;
-padding:16px;
-border:2px solid #dbe3ef;
-border-radius:14px;
-font-size:17px;
-margin-bottom:15px
+function upper(){
+  document.getElementById("caseOut").innerText =
+    document.getElementById("caseIn").value.toUpperCase();
 }
 
-.categories{
-display:flex;
-gap:8px;
-overflow:auto;
-margin-bottom:20px
+function lower(){
+  document.getElementById("caseOut").innerText =
+    document.getElementById("caseIn").value.toLowerCase();
 }
 
-button{
-border:0;
-border-radius:10px;
-padding:11px 15px;
-background:#2563eb;
-color:white;
-cursor:pointer;
-margin:4px 2px
+function reverseText(){
+  document.getElementById("revOut").innerText =
+    [...document.getElementById("revIn").value].reverse().join("");
 }
 
-.categories button{
-background:white;
-color:#172033;
-border:1px solid #ddd
+function calculate(){
+  let x=document.getElementById("calc").value;
+
+  if(!/^[0-9+\-*/().%\s]+$/.test(x)){
+    document.getElementById("calcOut").innerText="Invalid calculation";
+    return;
+  }
+
+  try{
+    let result=Function("return ("+x+")")();
+    document.getElementById("calcOut").innerText="Result: "+result;
+  }catch{
+    document.getElementById("calcOut").innerText="Invalid calculation";
+  }
 }
 
-.categories .active{
-background:#2563eb;
-color:white
+function ageCalc(){
+  let value=document.getElementById("dob").value;
+
+  if(!value){
+    document.getElementById("ageOut").innerText="Select your birth date";
+    return;
+  }
+
+  let dob=new Date(value);
+  let today=new Date();
+
+  let age=today.getFullYear()-dob.getFullYear();
+
+  if(
+    today.getMonth()<dob.getMonth() ||
+    (today.getMonth()==dob.getMonth() &&
+     today.getDate()<dob.getDate())
+  ){
+    age--;
+  }
+
+  document.getElementById("ageOut").innerText=
+    "Age: "+age+" years";
 }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:18px
+function bmi(){
+  let w=parseFloat(document.getElementById("weight").value);
+  let h=parseFloat(document.getElementById("height").value)/100;
+
+  if(w<=0 || h<=0){
+    document.getElementById("bmiOut").innerText=
+      "Enter valid values";
+    return;
+  }
+
+  let result=w/(h*h);
+
+  document.getElementById("bmiOut").innerText=
+    "BMI: "+result.toFixed(1);
 }
 
-.card{
-background:white;
-border-radius:18px;
-padding:20px;
-box-shadow:0 8px 25px #0001
+function tipCalc(){
+  let bill=parseFloat(document.getElementById("bill").value);
+  let tip=parseFloat(document.getElementById("tip").value);
+
+  if(isNaN(bill)||isNaN(tip)){
+    document.getElementById("tipOut").innerText=
+      "Enter valid values";
+    return;
+  }
+
+  let total=bill+(bill*tip/100);
+
+  document.getElementById("tipOut").innerText=
+    "Total: "+total.toFixed(2);
 }
 
-.card h2{margin-top:0}
+function passwordGen(){
 
-input,textarea,select{
-width:100%;
-padding:12px;
-border:1px solid #ccd5e1;
-border-radius:10px;
-font-size:15px;
-margin:5px 0
+  let chars=
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+
+  let password="";
+
+  for(let i=0;i<14;i++){
+    password+=chars[
+      Math.floor(Math.random()*chars.length)
+    ];
+  }
+
+  document.getElementById("passOut").innerText=
+    password;
 }
 
-.result{
-background:#f1f5f9;
-padding:12px;
-border-radius:10px;
-margin-top:8px;
-min-height:40px;
-word-break:break-word
+function randomNum(){
+
+  let min=parseInt(
+    document.getElementById("min").value
+  );
+
+  let max=parseInt(
+    document.getElementById("max").value
+  );
+
+  if(isNaN(min)||isNaN(max)||min>max){
+    document.getElementById("randomOut").innerText=
+      "Enter valid numbers";
+    return;
+  }
+
+  let number=
+    Math.floor(Math.random()*(max-min+1))+min;
+
+  document.getElementById("randomOut").innerText=
+    "Number: "+number;
 }
 
-.hide{display:none!important}
+let timer;
+let remaining=0;
 
-footer{
-text-align:center;
-padding:35px;
-color:#64748b
+function startTimer(){
+
+  remaining=parseInt(
+    document.getElementById("seconds").value
+  );
+
+  if(isNaN(remaining)||remaining<=0)return;
+
+  clearInterval(timer);
+
+  timer=setInterval(function(){
+
+    let minutes=Math.floor(remaining/60);
+    let seconds=remaining%60;
+
+    document.getElementById("timerOut").innerText=
+      String(minutes).padStart(2,"0")+":"+
+      String(seconds).padStart(2,"0");
+
+    remaining--;
+
+    if(remaining<0){
+      clearInterval(timer);
+      document.getElementById("timerOut").innerText=
+        "⏰ Time Up!";
+    }
+
+  },1000);
 }
-</style>
-</head>
 
-<body>
+function stopTimer(){
+  clearInterval(timer);
+}
 
-<header>
-<h1>🛠️ ToolBox Online</h1>
-<p>20+ Free & Useful Online Tools</p>
-</header>
+function searchTools(){
 
-<div class="wrap">
+  let search=
+    document.getElementById("search").value.toLowerCase();
 
-<input class="search" id="search"
-placeholder="🔎 Search any tool..."
-oninput="searchTools()">
+  document.querySelectorAll(".tool").forEach(function(card){
 
-<div class="categories">
-<button class="active" onclick="filterTools('all',this)">All</button>
-<button onclick="filterTools('text',this)">📝 Text</button>
-<button onclick="filterTools('calc',this)">🧮 Calculators</button>
-<button onclick="filterTools('gen',this)">⚙️ Generators</button>
-<button onclick="filterTools('utility',this)">🛠️ Utility</button>
-</div>
+    let text=card.innerText.toLowerCase();
 
-<div class="grid">
+    if(text.includes(search)){
+      card.classList.remove("hide");
+    }else{
+      card.classList.add("hide");
+    }
 
-<div class="card tool" data-cat="text">
-<h2>📝 Word Counter</h2>
-<textarea id="wc" rows="5"
-placeholder="Write or paste text..."
-oninput="wordCount()"></textarea>
-<div class="result">
-Words: <b id="words">0</b><br>
-Characters: <b id="chars">0</b>
-</div>
-</div>
+  });
+}
 
-<div class="card tool" data-cat="text">
-<h2>🔠 Case Converter</h2>
-<textarea id="caseIn" rows="4"
-placeholder="Enter text..."></textarea>
-<button onclick="upper()">UPPERCASE</button>
-<button onclick="lower()">lowercase</button>
-<div class="result" id="caseOut"></div>
-</div>
+function filterTools(category,button){
 
-<div class="card tool" data-cat="text">
-<h2>↔️ Reverse Text</h2>
-<textarea id="revIn" rows="4"
-placeholder="Enter text..."></textarea>
-<button onclick="reverseText()">Reverse</button>
-<div class="result" id="revOut"></div>
-</div>
+  document.querySelectorAll(".categories button")
+  .forEach(function(b){
+    b.classList.remove("active");
+  });
 
-<div class="card tool" data-cat="calc">
-<h2>🧮 Calculator</h2>
-<input id="calc" placeholder="Example: 25+10*2">
-<button onclick="calculate()">Calculate</button>
-<div class="result" id="calcOut">Result: —</div>
-</div>
+  button.classList.add("active");
 
-<div class="card tool" data-cat="calc">
-<h2>🎂 Age Calculator</h2>
-<input type="date" id="dob">
-<button onclick="ageCalc()">Calculate Age</button>
-<div class="result" id="ageOut">Age: —</div>
-</div>
+  document.getElementById("search").value="";
 
-<div class="card tool" data-cat="calc">
-<h2>⚖️ BMI Calculator</h2>
-<input type="number" id="weight" placeholder="Weight (kg)">
-<input type="number" id="height" placeholder="Height (cm)">
-<button onclick="bmi()">Calculate BMI</button>
-<div class="result" id="bmiOut">BMI: —</div>
-</div>
+  document.querySelectorAll(".tool")
+  .forEach(function(card){
 
-<div class="card tool" data-cat="calc">
-<h2>💵 Tip Calculator</h2>
-<input type="number" id="bill" placeholder="Bill amount">
-<input type="number" id="tip" placeholder="Tip %">
-<button onclick="tipCalc()">Calculate</button>
-<div class="result" id="tipOut">Total: —</div>
-</div>
+    if(category==="all" ||
+       card.dataset.cat===category){
 
-<div class="card tool" data-cat="gen">
-<h2>🔐 Password Generator</h2>
-<button onclick="passwordGen()">Generate Password</button>
-<div class="result" id="passOut">Your password</div>
-</div>
+      card.classList.remove("hide");
 
-<div class="card tool" data-cat="gen">
-<h2>🎲 Random Number</h2>
-<input type="number" id="min" placeholder="Minimum">
-<input type="number" id="max" placeholder="Maximum">
-<button onclick="randomNum()">Generate</button>
-<div class="result" id="randomOut">Number: —</div>
-</div>
+    }else{
 
-<div class="card tool" data-cat="utility">
-<h2>⏱️ Timer</h2>
-<input type="number" id="seconds" placeholder="Seconds">
-<button onclick="startTimer()">Start</button>
-<button onclick="stopTimer()">Stop</button>
-<div class="result" id="timerOut">00:00</div>
-</div>
+      card.classList.add("hide");
 
-</div>
-</div>
+    }
 
-<footer>
-<b>ToolBox Online</b><br>
-Free useful tools for everyone © 2026
-</footer>
+  });
+}
+
+</script>
+</body>
+</html>
