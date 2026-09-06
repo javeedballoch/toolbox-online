@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://javeedballoch.github.io/toolbox-online/sitemap.xml
